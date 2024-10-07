@@ -128,6 +128,14 @@ import React from 'react';
 import { Box, TextField, Button, styled, Typography } from '@mui/material';
 import { API } from '../../service/api';
 
+const Error = styled(Typography)`
+    font-size: 10px;
+    color: #ff6161;
+    line-height: 0;
+    margin-top: 10px;
+    font-weight: 600;
+`
+
 const Component = styled(Box)`
     width: 400px;
     margin: auto;
@@ -180,7 +188,7 @@ const Login = () => {
 
     const [account, toggleAccount] = useState('login');
     const [signup, setSignup] = useState(signupInValue);
-
+    const [error, setError] = useState('');
     const imageUrl = 'https://th.bing.com/th/id/OIP.wbHi1nzv-pNypLiwryUt7QHaFj?w=240&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7';
 
     const toggleSignup = () => {
@@ -196,10 +204,14 @@ const Login = () => {
             let response = await API.userSignup(signup);
             console.log('Signup Response:', response); // Check response
             if (response.isSucess) {
+                setError('');
+                setSignup(signupInValue);
+                toggleAccount('login');
                 alert('Signup successful!');
                 // Optionally reset form or navigate to login
             } else {
-                alert(response.msg || 'Signup failed!');
+                // alert(response.msg || 'Signup failed!');
+                setError('Signup failed! Something went wrong! ');
             }
         } catch (error) {
             console.error('Signup Error:', error); // Log error
@@ -218,6 +230,8 @@ const Login = () => {
                                 <label>Login</label>
                                 <TextField name='username' placeholder='Username' variant='standard' />
                                 <TextField name='password' type='password' placeholder='Password' variant='standard' />
+
+                                { error && <Error>{error}</Error>}
                                 <LoginButton variant="contained">Login</LoginButton>
                                 <Text>OR</Text>
                                 <SignupButton onClick={toggleSignup}>Create an account</SignupButton>
@@ -228,6 +242,8 @@ const Login = () => {
                                 <TextField name='name' placeholder='Name' onChange={onInputChange} variant='standard' />
                                 <TextField name='username' placeholder='Username' onChange={onInputChange} variant='standard' />
                                 <TextField name='password' type='password' placeholder='Password' onChange={onInputChange} variant='standard' />
+
+                                { error && <Error>{error}</Error>}
                                 <SignupButton onClick={signupUser} variant="contained">Signup</SignupButton>
                                 <Text>OR</Text>
                                 <LoginButton onClick={toggleSignup}>Already have account</LoginButton>
