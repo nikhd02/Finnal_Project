@@ -152,7 +152,7 @@ const processResponse = (response) => {
         return { isSucess: true, data: response.data };
     } else {
         return { 
-            isSucess: false, 
+            isSuccess: false, 
             status: response?.status || 'Error',  // Handle undefined status
             msg: response?.data?.msg || 'Unknown error',  // Handle undefined message
             code: response?.data?.code || 'N/A'  // Handle undefined code
