@@ -26,6 +26,9 @@ import Connection from './database/db.js';
 import dotenv from 'dotenv';
 import Router from './route/route.js';
 import cors from 'cors'; // Import cors middleware
+import bodyParser from 'body-parser';
+
+
 
 dotenv.config(); // Load environment variables from .env file
 
@@ -34,6 +37,8 @@ const app = express();
 // Use CORS middleware to allow all origins (for development only)
 app.use(cors());
 
+app.use(bodyParser.json({ extends: true }))
+app.use(bodyParser.urlencoded({ extends: true }))
 // Middleware to parse JSON bodies
 app.use(express.json()); 
 
