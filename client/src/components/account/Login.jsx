@@ -106,6 +106,13 @@ const Login = () => {
 
     }
 
+    const loginUser = async () => {
+        let response = await API.userLogin(login);
+        if(response.isSuccess){
+            setError('Something is wrong! Please try again later');
+        }
+    }
+
     return (
         <div>
             <Component>
@@ -115,8 +122,8 @@ const Login = () => {
                         account === 'login' ?
                             <Wrapper>
                                 <label>Login</label>
-                                <TextField onChange={() => onVolumeChange(e)} name='username' placeholder='Username' variant='standard' />
-                                <TextField onChange={() => onVolumeChange(e)} name='password' type='password' placeholder='Password' variant='standard' />
+                                <TextField value={login.username} onChange={(e) => onVolumeChange(e)} name='username' placeholder='Username' variant='standard' />
+                                <TextField value={login.password} onChange={(e) => onVolumeChange(e)} name='password' type='password' placeholder='Password' variant='standard' />
 
                                 { error && <Error>{error}</Error>}
                                 <LoginButton variant="contained">Login</LoginButton>
