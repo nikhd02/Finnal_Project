@@ -7,14 +7,14 @@ import { request } from 'express';
 export const signupUser = async (req, res) => {
     try {
         // const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(request.body.password, 10);
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
-        const user = { username: request.body.username, name: request.body.name,password: hashedPassword };
-
-
-
-        const User = req.body; // Retrieve user data from request body
-        console.log('User data received:', Userser); // Log received user data
+        
+        
+        
+        // const User = req.body; // Retrieve user data from request body
+        const user = { username: req.body.username, name: req.body.name,password: hashedPassword };
+        // console.log('User data received:', user); // Log received user data
 
         const newUser = new User(user);
         await newUser.save(); // Save the user in the database
